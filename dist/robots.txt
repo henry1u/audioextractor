@@ -1,0 +1,7 @@
+User-agent: *
+Allow: /
+
+# Allow all search engines to crawl the entire site
+# This robots.txt file permits normal crawling and indexing
+
+Sitemap: /sitemap.xml

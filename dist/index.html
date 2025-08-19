@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- SEO Meta Tags -->
+    <title>Audio Extractor – Extract Audio from Video, Free & Local</title>
+    <meta name="description" content="Extract MP3, WAV, ACC from any video right in your device — no uploads, no installs. 100 % local, private & free.">
+    <meta name="keywords" content="audio extractor, extract audio from video, extract sound from video, extraer audio de video, get audio from video, extract music from video, extrair audio de video, video audio extractor, audio of video, extract audio online, extraer audio de video online, audio from video, extract mp3 from mp4, mp3 extractor, sound extractor, download audio from video, strip sound from video, audio ripper, how to extract audio from video, video sound extractor, rip audio from video, separar audio de video, voice extractor, separate audio from video, extractor video, split sound from video, audio extractor online, audio extraction, youtube audio extractor, extract sound from mp4, 视频提取音频, извлечь звук из видео, isolate audio from mp4, export audio from video, video to audio, detach audio from video, audio extractor from website, extract mp3 from video, save audio from video, extract voice from video, descargar audio de un video">
+    <meta name="author" content="Video Audio Extractor">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://audioextractor.app/">
+    
+    <!-- Open Graph Meta Tags -->
+    <meta property="og:title" content="Free Video to Audio Converter - Extract Audio from Video Online">
+    <meta property="og:description" content="Convert video files to audio format instantly in your browser. Free, secure, and no upload required.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://audioextractor.app/">
+    <meta property="og:image" content="https://audioextractor.app/assets/android-chrome-512x512.png">
+    <meta property="og:site_name" content="Video Audio Extractor">
+    
+    <!-- Twitter Card Meta Tags -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Free Video to Audio Converter - Extract Audio from Video Online">
+    <meta name="twitter:description" content="Convert video files to audio format instantly in your browser. Free, secure, and no upload required.">
+    <meta name="twitter:image" content="https://audioextractor.app/assets/android-chrome-512x512.png">
+    
+    <!-- Structured Data -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "Video Audio Extractor",
+      "description": "Convert video files to audio format instantly in your browser. Free, secure, and no upload required.",
+      "url": "https://audioextractor.app/",
+      "applicationCategory": "MultimediaApplication",
+      "operatingSystem": "Any",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      }
+    }
+    </script>
+    
+    <link rel="stylesheet" href="style.css">
+    <link rel="apple-touch-icon" sizes="180x180" href="/assets/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon-16x16.png">
+    <link rel="manifest" href="/assets/site.webmanifest">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Video Audio Extractor</h1>
+            <p>Convert video to audio locally in your browser</p>
+        </header>
+
+        <main>
+            <div class="upload-section">
+                <div class="upload-area" id="uploadArea">
+                    <div class="upload-content">
+                        <div class="upload-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="tabler-icon tabler-icon-movie" role="img" aria-label="Video file upload icon">
+                                <title>Upload Video File</title>
+                                <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                                <path d="M4 4m0 2a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v12a2 2 0 0 1 -2 2h-12a2 2 0 0 1 -2 -2z" />
+                                <path d="M8 4l0 16" />
+                                <path d="M16 4l0 16" />
+                                <path d="M4 8l4 0" />
+                                <path d="M4 16l4 0" />
+                                <path d="M4 12l16 0" />
+                                <path d="M16 8l4 0" />
+                                <path d="M16 16l4 0" />
+                            </svg>
+                        </div>
+                        <h3>Select Video File</h3>
+                        <p>Supports MP4, AVI, MOV, MKV and other formats</p>
+                        <input type="file" id="videoInput" accept="video/*" hidden>
+                        <button class="upload-btn" id="uploadBtn" onclick="handleUploadClick()" disabled>
+                            Choose File
+                        </button>
+                        <div class="init-message" id="initMessage">
+                            <p>Preparing audio processing tools, please wait a moment<span class="loading-dots"><span class="dot1">.</span><span class="dot2">.</span><span class="dot3">.</span><span class="dot4">.</span></span> <span id="timer">0s</span></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="video-preview" id="videoPreview" style="display: none;">
+                <h3>Video Preview</h3>
+                <div class="video-container">
+                    <div class="video-player">
+                        <video id="videoElement"></video>
+                        <div class="video-controls">
+                            <button type="button" class="play-button" id="playButton" aria-label="Play">
+                                <svg class="play-icon" xmlns="http://www.w3.org/2000/svg" height="48" viewBox="0 96 960 960" width="48">
+                                    <path fill="currentColor" d="M366 824q-15 10-30.5 1T320 798V348q0-18 15.5-27t30.5 1l354 226q14 9 14 25t-14 25L366 824Z"></path>
+                                </svg>
+                                <svg class="pause-icon" xmlns="http://www.w3.org/2000/svg" height="48" viewBox="0 96 960 960" width="48" style="display: none;">
+                                    <path fill="currentColor" d="M300 816q-25 0-42.5-17.5T240 756V396q0-25 17.5-42.5T300 336h360q25 0 42.5 17.5T720 396v360q0 25-17.5 42.5T660 816H300Z"></path>
+                                </svg>
+                            </button>
+                            <span class="video-duration" id="videoDurationDisplay">0:00</span>
+                            <button type="button" class="remove-button" id="removeButton" title="Remove">
+                                <svg xmlns="http://www.w3.org/2000/svg" height="48" viewBox="0 96 960 960" width="48">
+                                    <path fill="currentColor" d="m249 849-42-42 231-231-231-231 42-42 231 231 231-231 42 42-231 231 231 231-42 42-231-231-231 231Z"></path>
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <!-- Timeline with ticks -->
+                    <div class="timeline-container">
+                        <div class="timeline-ticks" id="timelineTicks">
+                            <div class="big-intervals" id="bigIntervals"></div>
+                            <div class="small-intervals" id="smallIntervals"></div>
+                            <div class="time-delimiters" id="timeDelimiters"></div>
+                            <div class="progress-indicator" id="progressIndicator"></div>
+                        </div>
+                    </div>
+                    
+                    <!-- Range Selection Slider -->
+                    <div class="video-time-slider">
+                        <div class="time-slider-track" id="timeSliderTrack">
+                            <div class="time-slider-range" id="timeSliderRange"></div>
+                            <div class="time-slider-handle time-slider-handle-start" id="startHandle" data-handle="start">
+                                <div class="range-tooltip" id="startTooltip">0:00</div>
+                            </div>
+                            <div class="time-slider-handle time-slider-handle-end" id="endHandle" data-handle="end">
+                                <div class="range-tooltip" id="endTooltip">0:00</div>
+                            </div>
+                        </div>
+                        <div class="time-slider-labels">
+                            <span class="time-label-start" id="timeSliderStart">00:00</span>
+                            <span class="time-label-end" id="timeSliderEnd">00:00</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="time-range-section">
+                    <h4>Video Trim</h4>
+                    
+                    <p><strong>File Name:</strong> <span id="fileName"></span></p>
+                    <p><strong>File Size:</strong> <span id="fileSize"></span></p>
+                    <p><strong>Duration:</strong> <span id="duration"></span></p>
+                    
+                    <!-- Time Input Controls -->
+                    <div class="time-controls">
+                        <div class="time-input-row">
+                            <div class="time-input-group">
+                                <label for="startTime">Start Time:</label>
+                                <input type="time" id="startTime" step="1" value="00:00:00">
+                            </div>
+                            <div class="time-input-group">
+                                <label for="endTime">End Time:</label>
+                                <input type="time" id="endTime" step="1" value="00:00:00">
+                            </div>
+                        </div>
+                        <div class="time-buttons">
+                            <button type="button" class="upload-btn" id="resetRangeBtn" onclick="resetTimeRange()">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-right: 8px;">
+                                    <path d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8"></path>
+                                    <path d="M21 3v5h-5"></path>
+                                    <path d="M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16"></path>
+                                    <path d="M3 21v-5h5"></path>
+                                </svg>
+                                Reset to Full Video
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="conversion-section" id="conversionSection" style="display: none;">
+                <h3>Audio Extraction Settings</h3>
+                <div class="settings">
+                    <div class="setting-group">
+                        <label for="audioFormat">Output Audio Format:</label>
+                        <select id="audioFormat">
+                            <option value="mp3">MP3</option>
+                            <option value="wav">WAV</option>
+                            <option value="aac">AAC</option>
+                        </select>
+                    </div>
+
+                </div>
+                <button class="convert-btn" id="convertBtn" onclick="convertVideo()">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="tabler-icon tabler-icon-music button-icon">
+                        <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                        <path d="M3 17a3 3 0 1 0 6 0a3 3 0 0 0 -6 0" />
+                        <path d="M13 17a3 3 0 1 0 6 0a3 3 0 0 0 -6 0" />
+                        <path d="M9 17v-13h10v13" />
+                        <path d="M9 8h10" />
+                    </svg>
+                    Start Audio Extraction
+                </button>
+            </div>
+
+            <div class="progress-section" id="progressSection" style="display: none;">
+                <h3>Processing Progress</h3>
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progressFill"></div>
+                </div>
+                <p class="progress-text" id="progressText">Preparing...</p>
+                <button class="refresh-btn" id="refreshBtn" onclick="location.reload()" style="display: none;">
+                    Try Again
+                </button>
+                <div class="log-output" id="logOutput"></div>
+            </div>
+
+            <div class="result-section" id="resultSection" style="display: none;">
+                <h3>Extraction Complete</h3>
+                <div class="audio-preview">
+                    <audio id="audioElement" controls></audio>
+                </div>
+                <div class="download-section">
+                    <button class="download-btn" id="downloadBtn">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="tabler-icon tabler-icon-music button-icon">
+                            <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                            <path d="M3 17a3 3 0 1 0 6 0a3 3 0 0 0 -6 0" />
+                            <path d="M13 17a3 3 0 1 0 6 0a3 3 0 0 0 -6 0" />
+                            <path d="M9 17v-13h10v13" />
+                            <path d="M9 8h10" />
+                        </svg>
+                        Download Audio File
+                    </button>
+                    <button class="reset-btn" onclick="resetApp()">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="tabler-icon tabler-icon-refresh button-icon">
+                            <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                            <path d="M20 11a8.1 8.1 0 0 0 -15.5 -2m-.5 -4v4h4" />
+                            <path d="M4 13a8.1 8.1 0 0 0 15.5 2m.5 4v-4h-4" />
+                        </svg>
+                        Start Over
+                    </button>
+                </div>
+            </div>
+        </main>
+
+        <section class="features-section">
+            <div class="features-container">
+                <h2>Why Choose Us</h2>
+                <div class="features-grid">
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M9 12l2 2 4-4"/>
+                                <path d="M21 12c.552 0 1-.448 1-1V5c0-.552-.448-1-1-1H3c-.552 0-1 .448-1 1v6c0 .552.448 1 1 1"/>
+                                <path d="M21 19c.552 0 1-.448 1-1v-6c0-.552-.448-1-1-1H3c-.552 0-1 .448-1 1v6c0 .552.448 1 1 1"/>
+                            </svg>
+                        </div>
+                        <h3>100% Secure & Private</h3>
+                        <p>Your videos never leave your device. All processing happens locally in your browser, ensuring complete privacy and security of your files.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                            </svg>
+                        </div>
+                        <h3>Easy to Use</h3>
+                        <p>Simple and intuitive interface that allows you to extract audio from videos with just a few clicks. No technical knowledge required.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <rect x="2" y="3" width="20" height="14" rx="2" ry="2"/>
+                                <line x1="8" y1="21" x2="16" y2="21"/>
+                                <line x1="12" y1="17" x2="12" y2="21"/>
+                            </svg>
+                        </div>
+                        <h3>Works on Any Device</h3>
+                        <p>Compatible with all modern devices including desktops, laptops, tablets, and smartphones. Access from anywhere with a web browser.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <circle cx="12" cy="12" r="10"/>
+                                <path d="M8 14s1.5 2 4 2 4-2 4-2"/>
+                                <line x1="9" y1="9" x2="9.01" y2="9"/>
+                                <line x1="15" y1="9" x2="15.01" y2="9"/>
+                            </svg>
+                        </div>
+                        <h3>No Downloads Required</h3>
+                        <p>No need to install any software or plugins. Simply open your browser and start extracting audio immediately.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+                                <circle cx="8.5" cy="7" r="4"/>
+                                <path d="M20 8v6"/>
+                                <path d="M23 11h-6"/>
+                            </svg>
+                        </div>
+                        <h3>Completely Free</h3>
+                        <p>Our audio extraction tool is completely free to use with no hidden costs, watermarks, or usage limitations.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/>
+                            </svg>
+                        </div>
+                        <h3>Lightning Fast</h3>
+                        <p>Powered by FFmpeg.wasm technology for high-speed audio extraction with excellent quality preservation.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <footer>
+            <div class="footer-content">
+                <p>Powered by FFmpeg.wasm | All processing is done locally in your browser</p>
+                <p>© 2024 Video Audio Extractor. Free online video to audio converter.</p>
+            </div>
+        </footer>
+    </div>
+
+    <!-- Load FFmpeg library -->
+    <script src="https://unpkg.com/@ffmpeg/ffmpeg@0.11.6/dist/ffmpeg.min.js"></script>
+    <script src="script.js"></script>
+
+    <div style="display: none;">
+        <!-- Google tag (gtag.js) -->
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-VV53MVSS00"></script>
+        <script>
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+        
+          gtag('config', 'G-VV53MVSS00');
+        </script>
+    </div>
+</body>
+</html>
